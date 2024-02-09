@@ -1,19 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nestjs-k8s
+  name: train-doggos
 spec:
-  selector: 
+  selector:
     matchLabels:
-    app: nestjs-k8s
+      app: train-doggos
   replicas: 2
   template:
     metadata:
       labels:
-        app: nestjs-k8s
+        app:  train-doggos
     spec:
       containers:
-      - name: nestjs-k8s
-        image: viictoo/train-doggos
-        ports:
-          - containerPort: 3000
+        - name: train-doggos
+          image: viictoo/train-doggos
+          ports:
+            - containerPort: 3000
+          
