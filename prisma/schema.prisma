@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// data modelt that repr the data that we will have
+model Trainer {
+  id      Int     @id @default(autoincrement())
+  name    String
+  age     Int
+  role    Role
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Dogs {
+  id      Int     @id @default(autoincrement())
+  name    String
+  age     Int
+  role    SKill
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// create custom enum to use to define roles
+
+enum Role {
+  BASIC_TRAINER
+  BEHAVIOR_SPECIALIST
+  PUPPY_TRAINER
+  ADULT_DOG_TRAINER
+  SERVICE_DOG_TRAINER
+}
+
+enum SKill {
+  GUARD
+  PET
+  HUNTER
+  SEARCH_AND_RESCUE
+  SERVICE
+}
