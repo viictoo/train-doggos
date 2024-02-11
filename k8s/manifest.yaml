@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: train-doggos
+spec:
+  selector:
+    matchLabels:
+      app: train-doggos
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app:  train-doggos
+    spec:
+      containers:
+        - name: train-doggos
+          image: viictoo/train-doggos
+          ports:
+            - containerPort: 3000
+----------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-master
+spec:
+  ports:
+    - name: db
+      protocol: TCP
+      port: 5432
+      targetPort: 5432
