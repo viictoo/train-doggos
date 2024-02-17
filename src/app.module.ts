@@ -5,8 +5,10 @@ import { DogsModule } from './dogs/dogs.module';
 import { DatabaseModule } from './database/database.module';
 import { TrainerModule } from './trainer/trainer.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { MyLoggerModule } from './my_logger/my_logger.module';
+import { PrometheusModule } from "@willsoto/nestjs-prometheus";
+import { LoggingInterceptor } from './logging.interceptor';
 
 @Module({
   imports: [
@@ -26,6 +28,7 @@ import { MyLoggerModule } from './my_logger/my_logger.module';
       },
     ]),
     MyLoggerModule,
+    PrometheusModule.register()
   ],
 
   controllers: [AppController],
@@ -34,6 +37,11 @@ import { MyLoggerModule } from './my_logger/my_logger.module';
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
+    },
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
     },
   ],
 })
