@@ -1,0 +1,28 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: train-doggos
+  name: train-doggos
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: /metrics
+    prometheus.io/port: "3000"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: train-doggos
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: train-doggos
+    spec:
+      containers:
+      - image: viictoo/train-doggos
+        name: train-doggos
+        ports:
+        - containerPort:  3000
+
